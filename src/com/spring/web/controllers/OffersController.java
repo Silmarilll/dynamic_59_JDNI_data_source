@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.web.dao.Offer;
@@ -39,6 +40,12 @@ public class OffersController {
 		this.offersService = offersService;
 	}
 
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String showTest(Model model, @RequestParam("id") String id) {
+		System.out.println("Id is " + id);
+		return "home";
+	}
+	
 	@RequestMapping(value = "/offers", method = RequestMethod.GET)
 	public String showOffers(Model model) {
 		List<Offer> offers = offersService.getCurrent();
