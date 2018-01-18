@@ -12,21 +12,13 @@
 <body>
 Hi there!
 
-Session: <%= session.getAttribute("name") %> <p/>
 
-Request: <%= request.getAttribute("name") %> <p/>
-
-Request (using EL): ${name} <p/>
-
-<c:out value="${name}" ></c:out>
-
-<%-- <sql:query var="rs" dataSource="jdbc/jdni_name">
-select id, name, email, text from offers
-</sql:query>
-
-<c:forEach var="row" items="${rs.rows}">
+<c:forEach var="row" items="${offers}">
+    ID: ${row.id}<br/>
     Name: ${row.name}<br/>
+    E-mail: ${row.email}<br/>
     Text: ${row.text}<br/>
+    <br/>
 </c:forEach> --%>
 </body>
 </html>
