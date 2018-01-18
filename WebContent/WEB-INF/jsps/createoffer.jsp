@@ -3,6 +3,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<style type="text/css">
+.formtable {
+	width: 400px;
+	padding: 10px;
+	border: 1px solod blue;
+}
+
+input[type=text] {
+	width: 250px;
+}
+
+textarea {
+	width: 250px;
+	height: 400px;
+}
+
+.label {
+	text-align: right;
+	vertical-align: top;
+}
+
+.control {
+	margin-left: 10px
+}
+
+</style>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -11,11 +39,11 @@
 
 
 <form method="post" action="${pageContext.request.contextPath}/docreate">
-<table>
-<tr><td>Name: </td><td><input name="name" type="text"/></td></tr>
-<tr><td>Email: </td><td><input name="email" type="text"/></td></tr>
-<tr><td>Your text: </td><td><textarea name="text" rows="10" cols="10"></textarea></td></tr>
-<tr><td> </td><td><input name="Create advert" type="submit"/></td></tr>
+<table class="formtable">
+<tr><td class="label">Name: </td><td><input class="control" name="name" type="text"/></td></tr>
+<tr><td class="label">Email: </td><td><input class="control" name="email" type="text"/></td></tr>
+<tr><td class="label">Your text: </td><td><textarea class="control" name="text" rows="10" cols="10"></textarea></td></tr>
+<tr><td class="label"> </td><td><input class="control" value="Create advert" type="submit"/></td></tr>
 </table>
 </form>
 </body>
