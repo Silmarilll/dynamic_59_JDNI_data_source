@@ -39,10 +39,15 @@ public class OffersController {
 		this.offersService = offersService;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String showHome(Model model) {
+	@RequestMapping(value = "/offers", method = RequestMethod.GET)
+	public String showOffers(Model model) {
 		List<Offer> offers = offersService.getCurrent();
 		model.addAttribute("offers", offers);
-		return "home";
+		return "offers";
+	}
+	
+	@RequestMapping(value = "/createoffer", method = RequestMethod.GET)
+	public String createOffer() {
+		return "createoffer";
 	}
 }

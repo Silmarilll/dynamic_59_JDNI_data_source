@@ -1,24 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
-
-  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
 </head>
 <body>
-Hi there!
 
+<p><a href="${pageContext.request.contextPath}/offers">Show current offers</a></p>
+<p><a href="${pageContext.request.contextPath}/createoffer">Create offer</a></p>
 
-<c:forEach var="row" items="${offers}">
-    ID: ${row.id}<br/>
-    Name: ${row.name}<br/>
-    E-mail: ${row.email}<br/>
-    Text: ${row.text}<br/>
-    <br/>
-</c:forEach> --%>
 </body>
 </html>
