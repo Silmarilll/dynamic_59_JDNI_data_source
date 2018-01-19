@@ -1,10 +1,18 @@
 package com.spring.web.dao;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class Offer {
 	
 	private int id;
+	@Size(min=3, max=100, message="Name has wrong legth")
 	private String name;
+	@NotEmpty(message="Please fill the email")
+	@Pattern(regexp=".*\\@.*\\..*", message="Not valid email address")
 	private String email;
+	@NotEmpty(message="Please fill the text")
 	private String text;
 	
 	
