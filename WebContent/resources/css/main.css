@@ -11,8 +11,14 @@ input[type=text] {
 }
 
 textarea {
-	width: 250px;
-	height: 400px;
+	width: 300px;
+	height: 200px;
+}
+
+.errors {
+	font-size: small;
+	color: red;
+	margin-left: 10px;
 }
 
 .label {
@@ -21,5 +27,6 @@ textarea {
 }
 
 .control {
-	margin-left: 10px
+	margin-left: 10px;
 }
+

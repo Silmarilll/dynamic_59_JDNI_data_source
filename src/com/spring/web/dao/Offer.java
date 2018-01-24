@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 public class Offer {
 	
 	private int id;
-	@Size(min=3, max=100, message="Name has wrong legth")
+	@Size(min=3, max=100, message="Name has to be between {min} and {max}")
 	private String name;
 	@NotEmpty(message="Please fill the email")
 	@Pattern(regexp=".*\\@.*\\..*", message="Not valid email address")
