@@ -4,6 +4,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.spring.web.validation.ValidEmail;
+
 public class Offer {
 	
 	private int id;
@@ -11,6 +13,7 @@ public class Offer {
 	private String name;
 	@NotEmpty(message="Please fill the email")
 	@Pattern(regexp=".*\\@.*\\..*", message="Not valid email address")
+	@ValidEmail(min=6, message = "Email should be more than {min}")
 	private String email;
 	@NotEmpty(message="Please fill the text")
 	private String text;
