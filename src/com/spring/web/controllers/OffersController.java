@@ -69,6 +69,8 @@ public class OffersController {
 			result.getAllErrors().forEach(e -> System.out.println(e));
 			return "createoffer";
 		}
+		
+		offersService.create(offer);
 
 		return "offercreated";
 	}

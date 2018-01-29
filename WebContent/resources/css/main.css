@@ -30,3 +30,8 @@ textarea {
 	margin-left: 10px;
 }
 
+table.offers {
+	padding: 20 px;
+	border: 1 px solid gray;
+}
+
