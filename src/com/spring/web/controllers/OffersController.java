@@ -77,10 +77,4 @@ public class OffersController {
 
 		return "offercreated";
 	}
-	
-	
-	@ExceptionHandler(DataAccessException.class)
-	public String handleDbException(DataAccessException ex) {
-		return "error";
-	}
 }
