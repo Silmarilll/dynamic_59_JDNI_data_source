@@ -53,7 +53,6 @@ public class OffersController {
 	
 	@RequestMapping(value = "/offers", method = RequestMethod.GET)
 	public String showOffers(Model model) {
-		offersService.throwTestException();
 		List<Offer> offers = offersService.getCurrent();
 		model.addAttribute("offers", offers);
 		return "offers";
