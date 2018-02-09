@@ -13,7 +13,7 @@ public class Offer {
 	private String name;
 	@NotEmpty(message="Please fill the email")
 	@Pattern(regexp=".*\\@.*\\..*", message="Not valid email address")
-	@ValidEmail(min=6, message = "Email should be more than {min}")
+	@ValidEmail(min=3, message = "Email should be more than {min}")
 	private String email;
 	@NotEmpty(message="Please fill the text")
 	private String text;
