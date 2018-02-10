@@ -12,7 +12,7 @@
 
 
 
-<form method="post" action="${pageContext.request.contextPath}/docreate" commandName="offer">
+<form method="get" action="${pageContext.request.contextPath}/docreate" commandName="offer">
 <table class="formtable">
 <tr><td class="label">Name: </td><td><sf:input class="control" name="name" type="text" path="offer.name"/><br/><sf:errors path="offer.name" cssClass="errors"></sf:errors></td></tr>
 <tr><td class="label">Email: </td><td><sf:input class="control" name="email" type="text" path="offer.email"/><br/><sf:errors path="offer.email" cssClass="errors"></sf:errors></td></tr>
