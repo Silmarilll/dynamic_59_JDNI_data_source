@@ -39,6 +39,11 @@ public class LoginController {
 	public String createAccount() {
 		return "accountcreated";
 	}
+	
+	@RequestMapping("/loggedout")
+	public String showLoggedOut() {
+		return "loggedout";
+	}
 
 	@RequestMapping(value = "/createaccount", method = RequestMethod.POST)
 	public String createAccount(Model model, @Valid User user, BindingResult result) {
