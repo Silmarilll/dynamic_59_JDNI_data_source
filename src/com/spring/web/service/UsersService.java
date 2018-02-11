@@ -20,4 +20,9 @@ public class UsersService {
 	public void create(User user) {
 		usersDao.create(user);
 	}
+
+
+	public boolean exists(String username) {
+		return usersDao.exists(username);
+	}
 }
