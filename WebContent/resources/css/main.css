@@ -21,6 +21,12 @@ textarea {
 	margin-left: 10px;
 }
 
+.valid {
+	font-size: small;
+	color: green;
+	margin-left: 10px;
+}
+
 p.error {
 	color: red;
 	margin-left: 10px;
