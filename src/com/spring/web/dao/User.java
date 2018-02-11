@@ -1,11 +1,23 @@
 package com.spring.web.dao;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class User {
-	
+	@NotBlank(message="Username cannot be blank")
+	@Size(min=3, max=15, message="Username should be between {min} and {max}")
+	@Pattern(regexp="^\\w{3,}$")
 	private String username;
+	
+	@NotBlank
+	@Pattern(regexp="^\\S+$")
+	@Size(min=3, max=15, message="Paasword should be between {min} and {max}")
 	private String password;
 	private boolean enabled;
 	private String authority;
+	@Email
 	private String email;
 	
 	public User() {}
