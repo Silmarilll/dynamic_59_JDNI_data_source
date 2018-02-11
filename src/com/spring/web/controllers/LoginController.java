@@ -34,11 +34,6 @@ public class LoginController {
 		model.addAttribute("user", new User());
 		return "newaccount";
 	}
-
-	@RequestMapping("/createaccount")
-	public String createAccount() {
-		return "accountcreated";
-	}
 	
 	@RequestMapping("/loggedout")
 	public String showLoggedOut() {
@@ -55,15 +50,16 @@ public class LoginController {
 
 		if (usersService.exists(user.getUsername())) {
 			System.out.println("Caught duplicate username");
+		} else {
 			try {
 				usersService.create(user);
 			} catch (DuplicateKeyException ex) {
 				result.rejectValue("username", "DuplicateKey.user.username", "This username already exists");
 				return "newaccount";
 			}
-		}
+		}	
 
-		return "offercreated";
+		return "accountcreated";
 	}
 
 }

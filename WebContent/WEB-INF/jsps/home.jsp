@@ -16,6 +16,7 @@
 		<a href="${pageContext.request.contextPath}/createoffer">Create
 			offer</a>
 	</p>
+<p><a href="<c:url value='/admin'/>">Admin</a></p>
 
 <p><c:url var="logoutUrl" value="/logout"/><form action="${logoutUrl}" method="post"> <input type="submit" value="Log out" /> <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/></form></p>
 </body>
