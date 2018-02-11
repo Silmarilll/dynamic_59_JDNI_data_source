@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 public class User {
 	@NotBlank(message="Username cannot be blank")
-	@Size(min=3, max=15, message="Username should be between {min} and {max}")
+	@Size(min=3, max=15)
 	@Pattern(regexp="^\\w{3,}$")
 	private String username;
 	
