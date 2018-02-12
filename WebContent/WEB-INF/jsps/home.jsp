@@ -26,7 +26,7 @@
 	<p><c:url var="logoutUrl" value="/logout"/><form action="${logoutUrl}" method="post"> <input type="submit" value="Log out" /> <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/></form></p>
 </sec:authorize> 
 
-<sec:authorize access="hasAuthority('admin')">	
+<sec:authorize access="hasAuthority('ROLE_ADMIN')">	
 <p><a href="<c:url value='/admin'/>">Admin</a></p>
 </sec:authorize> 
 </body>
