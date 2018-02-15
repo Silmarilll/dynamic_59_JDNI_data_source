@@ -53,8 +53,8 @@ $(document).ready(onLoad);
 <table class="formtable">
 <tr><td class="label">Username: </td><td><sf:input class="control" name="username" type="text" path="user.username"/><br/><div class="errors"><sf:errors path="user.username"></sf:errors></div></td></tr>
 <tr><td class="label">Email: </td><td><sf:input class="control" name="email" type="text" path="user.email"/><br/><div class="errors"><sf:errors path="user.email"></sf:errors></div></td></tr>
-<tr><td class="label">Password: </td><td><sf:textarea class="control" name="password" rows="10" cols="10" path="user.password"></sf:textarea><br/><div class="errors"><sf:errors path="user.password"></sf:errors></div></td></tr>
-<tr><td class="label">Confirm password: </td><td><input class="control" id="confirmpassword" name="confirmpass" type="text"/><div id="matchpass"></div><br/></td></tr>
+<tr><td class="label">Password: </td><td><sf:password class="control" name="password" rows="10" cols="10" path="user.password"/><br/><div class="errors"><sf:errors path="user.password"></sf:errors></div></td></tr>
+<tr><td class="label">Confirm password: </td><td><input class="control" id="confirmpassword" name="confirmpass" type="password"/><div id="matchpass"></div><br/></td></tr>
 <tr><td class="label"> </td><td><input class="control" value="Create advert" type="submit"/></td></tr>
 </table>
 </form>
