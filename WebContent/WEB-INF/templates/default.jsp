@@ -10,8 +10,9 @@
 <link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/scripts/jquery-3.3.1.min.js"></script>
 
-</head>
+<tiles:insertAttribute name="includes"></tiles:insertAttribute>
 
+</head>
 <body>
 <div class="header">
 	<tiles:insertAttribute name="header"></tiles:insertAttribute>

@@ -4,13 +4,12 @@
 <link href="${pageContext.request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css">
 
 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<script type="text/javascript">
+$(document).ready(function() {
+	document.f.username.focus();	
+})
+</script>
 
-<title>Login Page</title>
-</head>
-<body onload='document.f.username.focus();'>
 	<h3>Login with Username and Password</h3>
 	<c:if test="${param.error != null}">
 		<p>Login failed. Check login and password</p>	
@@ -37,5 +36,3 @@
 	</form>
 	
 	<p><a href="<c:url value="/newaccount"/>">Create new account</a></p>
-	</body>
-</html>
