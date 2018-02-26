@@ -56,7 +56,10 @@ public class OffersService {
 			offersDao.update(offer);
 		} else {
 			offersDao.create(offer);
-		}
-		
+		}		
+	}
+
+	public void delete(int id) {
+		offersDao.delete(id);		
 	}
 }
