@@ -1,5 +1,6 @@
 package com.spring.web.controllers;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -26,20 +27,6 @@ public class OffersController {
 	
 	private OffersService offersService;
 	
-/*	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String showHome(HttpSession session) {
-		session.setAttribute("name", "Boris");
-		return "home";
-	}*/
-	
-/*	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView showHome() {
-		ModelAndView mv = new ModelAndView("home");
-		Map<String, Object> model = mv.getModel();
-		model.put("name", "<b>River</b>");
-		return mv;
-	}*/
-
     @Autowired
 	public void setOffersService(OffersService offersService) {
 		this.offersService = offersService;
@@ -65,13 +52,15 @@ public class OffersController {
 	}
 	
 	@RequestMapping(value = "/docreate", method = RequestMethod.POST)
-	public String doCreate(Model model, @Valid Offer offer, BindingResult result) {
+	public String doCreate(Model model, @Valid Offer offer, BindingResult result, Principal principal) {
 		if(result.hasErrors()) {
 			System.out.println("Form does not validate");
 			result.getAllErrors().forEach(e -> System.out.println(e));
 			return "createoffer";
 		}
 		
+		String username = principal.getName();
+		offer.getUser().setUsername(username);
 		offersService.create(offer);
 
 		return "offercreated";

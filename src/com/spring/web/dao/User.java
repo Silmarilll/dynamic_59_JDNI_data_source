@@ -10,6 +10,8 @@ public class User {
 	@Size(min=3, max=15)
 	@Pattern(regexp="^\\w{3,}$")
 	private String username;
+	@NotBlank
+	@Size(min=3, max=15)
 	private String name;
 	
 	@NotBlank

@@ -23,6 +23,7 @@ public class Offer {
 	}
 	
 	public Offer() {
+		this.user = new User();
 	}
 	
 	public int getId() {
