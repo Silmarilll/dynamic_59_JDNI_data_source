@@ -1,14 +1,22 @@
 package com.spring.web.dao;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table(name="users")
 public class User {
 	@NotBlank(message="Username cannot be blank")
 	@Size(min=3, max=15)
 	@Pattern(regexp="^\\w{3,}$")
+	@Id
+	@Column(name="username")
 	private String username;
 	@NotBlank
 	@Size(min=3, max=15)

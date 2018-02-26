@@ -3,25 +3,34 @@ package com.spring.web.dao;
 import java.util.List;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
+
+@Transactional
 @Component("usersDao")
 public class UsersDAO {
 
 	private NamedParameterJdbcTemplate jdbc;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private SessionFactory sessionFactory;
 	
 
 	public NamedParameterJdbcTemplate getJdbc() {
 		return jdbc;
+	}
+	
+	public Session session() {
+		return sessionFactory.getCurrentSession();
 	}
 
 
@@ -51,8 +60,9 @@ public class UsersDAO {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	public List<User> getAllUsers() {
-		return jdbc.query("select * from users", BeanPropertyRowMapper.newInstance(User.class));
+		return session().createQuery("from User", User.class).list();
 	}
 
 
