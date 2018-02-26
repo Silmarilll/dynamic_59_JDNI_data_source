@@ -49,12 +49,12 @@ public class OfferDaoTest {
 	@Test
 	public void testCreateUser() {
 
-		User user = new User("johnwpurcell", "john@caveofprogramming.com", "John Purcell", "hellothere",
-				 true, "user");
+		User user = new User("johnwpurcell", "John Purcell", "hellothere",
+				"john@caveofprogramming.com", true, "user");
 
 		assertTrue("User creation should return true", usersDao.create(user));
 
-		Offer offer = new Offer(1, user, "This is a test offer.");
+		Offer offer = new Offer(user, "This is a test offer.");
 
 		assertTrue("Offer creation should return true", offersDao.create(offer));
 
@@ -76,10 +76,27 @@ public class OfferDaoTest {
 		assertEquals("Updated offer should match retrieved updated offer",
 				offer, updated);
 
+		// Test get by ID ///////
+		Offer offer2 = new Offer(user, "This is a test offer.");
+
+		assertTrue("Offer creation should return true", offersDao.create(offer2));
+		
+		List<Offer> userOffers = offersDao.getOffers(user.getUsername());
+		assertEquals("Should be two offers for user.", 2, userOffers.size());
+		
+		List<Offer> secondList = offersDao.getAllOffers();
+		
+		for(Offer current: secondList) {
+			Offer retrieved = offersDao.getOffer(current.getId());
+			
+			assertEquals("Offer by ID should match offer from list.", current, retrieved);
+		}
+		
+		// Test deletion
 		offersDao.delete(offer.getId());
 
-		List<Offer> empty = offersDao.getAllOffers();
+		List<Offer> finalList = offersDao.getAllOffers();
 
-		assertEquals("Offers lists should be empty.", 0, empty.size());
-	}
+		assertEquals("Offers lists should contain one offer.", 1, finalList.size());
+	}	
 }

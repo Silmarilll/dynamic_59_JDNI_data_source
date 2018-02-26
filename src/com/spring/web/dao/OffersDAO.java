@@ -33,27 +33,17 @@ public class OffersDAO {
 		
 		return jdbc
 				.query("select * from offers, users where offers.username=users.username and users.enabled=true",
-						new RowMapper<Offer>() {
+						new OfferRowMapper());
 
-							public Offer mapRow(ResultSet rs, int rowNum)
-									throws SQLException {
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Offer> getOffers(String username) {
+		
+		return jdbc
+				.query("select * from offers, users where offers.username=users.username and users.enabled=true",
+						new MapSqlParameterSource("username", username), new OfferRowMapper());
 
-								User user = new User();
-								user.setAuthority(rs.getString("authority"));
-								user.setEmail(rs.getString("email"));
-								user.setEnabled(true);
-								user.setName(rs.getString("name"));
-								user.setUsername(rs.getString("username"));
-
-								Offer offer = new Offer();
-								offer.setId(rs.getInt("id"));
-								offer.setText(rs.getString("text"));
-								offer.setUser(user);
-
-								return offer;
-							}
-
-						});
 	}
 
 	
@@ -62,26 +52,7 @@ public class OffersDAO {
 		params.addValue("id", id);
 
 		return jdbc.queryForObject("select * from offers, users where offers.username=users.username and users.enabled=true and id=:id", params,
-				new RowMapper<Offer>() {
-
-					public Offer mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						User user = new User();
-						user.setAuthority(rs.getString("authority"));
-						user.setEmail(rs.getString("email"));
-						user.setEnabled(true);
-						user.setName(rs.getString("name"));
-						user.setUsername(rs.getString("username"));
-
-						Offer offer = new Offer();
-						offer.setId(rs.getInt("id"));
-						offer.setText(rs.getString("text"));
-						offer.setUser(user);
-
-						return offer;
-					}
-
-				});
+				new OfferRowMapper());
 	}
 	
 	public boolean delete(int id) {
