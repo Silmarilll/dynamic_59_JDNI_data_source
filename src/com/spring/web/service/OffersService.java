@@ -2,6 +2,8 @@ package com.spring.web.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -37,5 +39,24 @@ public class OffersService {
 			return false;
 		}
 		return true;
+	}
+
+
+	public Offer getOffer(String username) {
+		if(username == null) return null;
+		List<Offer> offers = offersDao.getOffers(username);
+		if (offers == null)
+			return null;
+		return offers.get(0);
+	}
+
+
+	public void saveOrUpdate(@Valid Offer offer) {
+		if (offer.getId() != 0) {
+			offersDao.update(offer);
+		} else {
+			offersDao.create(offer);
+		}
+		
 	}
 }
