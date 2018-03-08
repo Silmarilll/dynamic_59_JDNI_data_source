@@ -35,6 +35,7 @@ public class OffersDAO {
 		this.jdbc = new NamedParameterJdbcTemplate(jdbc);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Offer> getOffers() {
 		Criteria criteria = session().createCriteria(Offer.class);
 		criteria.createAlias("user", "u").add(Restrictions.eq("u.enabled", true));
@@ -43,10 +44,11 @@ public class OffersDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Offer> getOffers(String username) {
-		
-		return jdbc
-				.query("select * from offers, users where offers.username=users.username and users.enabled=true",
-						new MapSqlParameterSource("username", username), new OfferRowMapper());
+		Criteria criteria = session().createCriteria(Offer.class);
+		criteria.createAlias("user", "u");
+		criteria.add(Restrictions.eq("u.enabled", true));
+		criteria.add(Restrictions.eq("u.username", username));
+		return criteria.list();
 
 	}
 
