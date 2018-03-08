@@ -5,8 +5,10 @@ import java.util.List;
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -34,10 +36,9 @@ public class OffersDAO {
 	}
 
 	public List<Offer> getOffers() {
-
-		return jdbc
-				.query("select * from offers, users where offers.username=users.username and users.enabled=true",
-						new OfferRowMapper());
+		Criteria criteria = session().createCriteria(Offer.class);
+		criteria.createAlias("user", "u").add(Restrictions.eq("u.enabled", true));
+		return criteria.list();
 	}
 	
 	@SuppressWarnings("unchecked")
