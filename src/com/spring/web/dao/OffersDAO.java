@@ -21,19 +21,12 @@ import org.springframework.stereotype.Repository;
 @Component("offersDao")
 @Transactional
 public class OffersDAO {
-
-	private NamedParameterJdbcTemplate jdbc;
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
 	public Session session() {
 		return sessionFactory.getCurrentSession();
-	}
-
-	@Autowired
-	public void setDataSource(DataSource jdbc) {
-		this.jdbc = new NamedParameterJdbcTemplate(jdbc);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -50,16 +43,15 @@ public class OffersDAO {
 		criteria.add(Restrictions.eq("u.enabled", true));
 		criteria.add(Restrictions.eq("u.username", username));
 		return criteria.list();
-
 	}
 
 	
 	public Offer getOffer(int id) {
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id", id);
-
-		return jdbc.queryForObject("select * from offers, users where offers.username=users.username and users.enabled=true and id=:id", params,
-				new OfferRowMapper());
+		Criteria criteria = session().createCriteria(Offer.class);
+		criteria.createAlias("user", "u");
+		criteria.add(Restrictions.eq("u.enabled", true));
+		criteria.add(Restrictions.idEq(id));
+		return (Offer) criteria.uniqueResult();
 	}
 	
 	public boolean delete(int id) {
