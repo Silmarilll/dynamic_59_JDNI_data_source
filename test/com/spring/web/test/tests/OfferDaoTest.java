@@ -30,13 +30,19 @@ import com.spring.web.dao.UsersDAO;
 public class OfferDaoTest {
 
 	@Autowired
-	private OffersDAO offersDao;
-
-	@Autowired
 	private UsersDAO usersDao;
 
 	@Autowired
 	private DataSource dataSource;
+	
+	private User user1 = new User("johnwpurcell", "John Purcell", "hellothere",
+			"john@caveofprogramming.com", true, "ROLE_USER");
+	private User user2 = new User("richardhannay", "Richard Hannay", "the39steps",
+			"richard@caveofprogramming.com", true, "ROLE_ADMIN");
+	private User user3 = new User("suetheviolinist", "Sue Black", "iloveviolins",
+			"sue@caveofprogramming.com", true, "ROLE_USER");
+	private User user4 = new User("rogerblake", "Rog Blake", "liberator",
+			"rog@caveofprogramming.com", false, "user");
 
 	@Before
 	public void init() {
@@ -45,58 +51,42 @@ public class OfferDaoTest {
 		jdbc.execute("delete from offers");
 		jdbc.execute("delete from users");
 	}
-
+	
 	@Test
-	public void testCreateUser() {
+	public void testCreateRetrieve() {
+		usersDao.create(user1);
+		
+		List<User> users1 = usersDao.getAllUsers();
+		
+		assertEquals("One user should have been created and retrieved", 1, users1.size());
+		
+		assertEquals("Inserted user should match retrieved", user1, users1.get(0));
+		
+		usersDao.create(user2);
+		usersDao.create(user3);
+		usersDao.create(user4);
+		
+		List<User> users2 = usersDao.getAllUsers();
+		
+		assertEquals("Should be four retrieved users.", 4, users2.size());
+	}
 
+	// TODO - Reimplement this
+	@Test
+	public void testUsers() {
 		User user = new User("johnwpurcell", "John Purcell", "hellothere",
 				"john@caveofprogramming.com", true, "user");
 
-		assertTrue("User creation should return true", usersDao.create(user));
+		usersDao.create(user);
 
-		Offer offer = new Offer(user, "This is a test offer.");
+		List<User> users = usersDao.getAllUsers();
 
-		assertTrue("Offer creation should return true", offersDao.create(offer));
+		assertEquals("Number of users should be 1.", 1, users.size());
 
-		List<Offer> offers = offersDao.getAllOffers();
+		assertTrue("User should exist.", usersDao.exists(user.getUsername()));
 
-		assertEquals("Should be one offer in database.", 1, offers.size());
+		assertEquals("Created user should be identical to retrieved user",
+				user, users.get(0));
 
-		assertEquals("Retrieved offer should match created offer.", offer,
-				offers.get(0));
-
-		// Get the offer with ID filled in.
-		offer = offers.get(0);
-
-		offer.setText("Updated offer text.");
-		assertTrue("Offer update should return true", offersDao.update(offer));
-
-		Offer updated = offersDao.getOffer(offer.getId());
-
-		assertEquals("Updated offer should match retrieved updated offer",
-				offer, updated);
-
-		// Test get by ID ///////
-		Offer offer2 = new Offer(user, "This is a test offer.");
-
-		assertTrue("Offer creation should return true", offersDao.create(offer2));
-		
-		List<Offer> userOffers = offersDao.getOffers(user.getUsername());
-		assertEquals("Should be two offers for user.", 2, userOffers.size());
-		
-		List<Offer> secondList = offersDao.getAllOffers();
-		
-		for(Offer current: secondList) {
-			Offer retrieved = offersDao.getOffer(current.getId());
-			
-			assertEquals("Offer by ID should match offer from list.", current, retrieved);
-		}
-		
-		// Test deletion
-		offersDao.delete(offer.getId());
-
-		List<Offer> finalList = offersDao.getAllOffers();
-
-		assertEquals("Offers lists should contain one offer.", 1, finalList.size());
-	}	
+	}
 }

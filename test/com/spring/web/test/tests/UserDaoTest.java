@@ -44,10 +44,9 @@ public class UserDaoTest {
 	
 	@Test
 	public void createUser() {
-		User user = new User("UserName", "name@gmail.com", "Name", "1", true, "Offers");	
-		boolean result = usersDao.create(user);
+		User user = new User("UserName", "Name", "11111", "name@gmail.com", true, "Offers");	
+		usersDao.create(user);
 		List<User> users = usersDao.getAllUsers();
-		assertTrue("User creation should return true", result);
 		assertEquals(1, users.size());
 	}
 }
