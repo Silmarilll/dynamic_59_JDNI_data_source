@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -62,8 +63,9 @@ public class OffersDAO {
 	}
 	
 	public boolean delete(int id) {
-		MapSqlParameterSource params = new MapSqlParameterSource("id", id);
-		return jdbc.update("delete from offers where id=:id", params) == 1;
+		Query query = session().createQuery("delete from Offer where id=:id");
+		query.setLong("id", id);
+		return query.executeUpdate() == 1;
 	}
 	
 	public void saveOrUpdate(Offer offer) {
