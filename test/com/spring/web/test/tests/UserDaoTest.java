@@ -28,7 +28,6 @@ import org.springframework.test.context.ActiveProfiles;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserDaoTest {
 	
-
 	@Autowired
 	private UsersDAO usersDao;
 
@@ -89,5 +88,4 @@ public class UserDaoTest {
 				user, users.get(0));
 
 	}
-
 }
