@@ -23,7 +23,7 @@ public class OffersService {
 
 
 	public List<Offer> getCurrent() {
-		return offersDao.getAllOffers();		
+		return offersDao.getOffers();		
 	}
 	
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})

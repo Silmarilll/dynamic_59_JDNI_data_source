@@ -28,6 +28,8 @@ import com.spring.web.dao.UsersDAO;
 		"classpath:com/spring/web/test/config/datasource.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class OfferDaoTest {
+	@Autowired
+	private OffersDAO offersDao;
 
 	@Autowired
 	private UsersDAO usersDao;
@@ -44,6 +46,15 @@ public class OfferDaoTest {
 	private User user4 = new User("rogerblake", "Rog Blake", "liberator",
 			"rog@caveofprogramming.com", false, "user");
 
+
+	private Offer offer1 = new Offer(user1, "This is a test offer.");
+	private Offer offer2 = new Offer(user1, "This is another test offer.");
+	private Offer offer3 = new Offer(user2, "This is yet another test offer.");
+	private Offer offer4 = new Offer(user3, "This is a test offer once again.");
+	private Offer offer5 = new Offer(user3, "Here is an interesting offer of some kind.");
+	private Offer offer6 = new Offer(user3, "This is just a test offer.");
+	private Offer offer7 = new Offer(user4, "This is a test offer for a user that is not enabled.");
+
 	@Before
 	public void init() {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
@@ -53,40 +64,82 @@ public class OfferDaoTest {
 	}
 	
 	@Test
-	public void testCreateRetrieve() {
+	public void testCreate() {
 		usersDao.create(user1);
-		
-		List<User> users1 = usersDao.getAllUsers();
-		
-		assertEquals("One user should have been created and retrieved", 1, users1.size());
-		
-		assertEquals("Inserted user should match retrieved", user1, users1.get(0));
-		
 		usersDao.create(user2);
 		usersDao.create(user3);
 		usersDao.create(user4);
 		
-		List<User> users2 = usersDao.getAllUsers();
+		offersDao.create(offer1);
 		
-		assertEquals("Should be four retrieved users.", 4, users2.size());
+		List<Offer> offers1 = offersDao.getOffers();
+		assertEquals("Should be one offer.", 1, offers1.size());
+		
+		assertEquals("Retrieved offer should equal inserted offer.", offer1, offers1.get(0));
+		
+		offersDao.create(offer2);
+		offersDao.create(offer3);
+		offersDao.create(offer4);
+		offersDao.create(offer5);
+		offersDao.create(offer6);
+		offersDao.create(offer7);
+		
+		List<Offer> offers2 = offersDao.getOffers();
+		assertEquals("Should be six offers for enabled users.", 6, offers2.size());
 	}
 
-	// TODO - Reimplement this
 	@Test
-	public void testUsers() {
+	public void testOffers() {
+
 		User user = new User("johnwpurcell", "John Purcell", "hellothere",
 				"john@caveofprogramming.com", true, "user");
 
 		usersDao.create(user);
 
-		List<User> users = usersDao.getAllUsers();
+		Offer offer = new Offer(user, "This is a test offer.");
 
-		assertEquals("Number of users should be 1.", 1, users.size());
+		offersDao.create(offer);
 
-		assertTrue("User should exist.", usersDao.exists(user.getUsername()));
+		List<Offer> offers = offersDao.getOffers();
 
-		assertEquals("Created user should be identical to retrieved user",
-				user, users.get(0));
+		assertEquals("Should be one offer in database.", 1, offers.size());
 
+		assertEquals("Retrieved offer should match created offer.", offer,
+				offers.get(0));
+
+		// Get the offer with ID filled in.
+		offer = offers.get(0);
+
+		offer.setText("Updated offer text.");
+		assertTrue("Offer update should return true", offersDao.update(offer));
+
+		Offer updated = offersDao.getOffer(offer.getId());
+
+		assertEquals("Updated offer should match retrieved updated offer",
+				offer, updated);
+
+		// Test get by ID ///////
+		Offer offer2 = new Offer(user, "This is a test offer.");
+
+		offersDao.create(offer2);
+		
+		List<Offer> userOffers = offersDao.getOffers(user.getUsername());
+		assertEquals("Should be two offers for user.", 2, userOffers.size());
+		
+		List<Offer> secondList = offersDao.getOffers();
+		
+		for(Offer current: secondList) {
+			Offer retrieved = offersDao.getOffer(current.getId());
+			
+			assertEquals("Offer by ID should match offer from list.", current, retrieved);
+		}
+		
+		// Test deletion
+		offersDao.delete(offer.getId());
+
+		List<Offer> finalList = offersDao.getOffers();
+
+		assertEquals("Offers lists should contain one offer.", 1, finalList.size());
 	}
+
 }

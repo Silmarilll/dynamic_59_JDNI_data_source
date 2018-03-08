@@ -45,22 +45,14 @@ public class User {
 		this.authority = authority;
 		this.email = email;
 	}
-	
-
-
-	
 
 	public String getName() {
 		return name;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 
 	public String getEmail() {
 		return email;

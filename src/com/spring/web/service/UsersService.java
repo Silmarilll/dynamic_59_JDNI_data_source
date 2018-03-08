@@ -20,8 +20,8 @@ public class UsersService {
 	}
 
 
-	public boolean create(User user) {
-		return usersDao.create(user);
+	public void create(User user) {
+		usersDao.create(user);
 	}
 
 
