@@ -66,13 +66,8 @@ public class OffersDAO {
 		return jdbc.update("delete from offers where id=:id", params) == 1;
 	}
 	
-	public void create(Offer offer) {
-		session().save(offer);
-	}
-	
-	public boolean update(Offer offer) {
-		BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(offer);
-		return jdbc.update("update offers set username = :username, text = :text where id = :id", params) == 1;
+	public void saveOrUpdate(Offer offer) {
+		session().saveOrUpdate(offer);
 	}
 
 }
