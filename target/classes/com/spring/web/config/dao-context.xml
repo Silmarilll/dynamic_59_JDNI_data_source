@@ -23,20 +23,22 @@
 			class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 			<property name="dataSource" ref="dataSource"></property>
 			<property name="hibernateProperties">
-				<props>
-								<props>
+			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="javax.persistence.validation.group.pre-persist">com.spring.web.dao.PersistenceValidationGroup.java</prop>
 				<prop key="javax.persistence.validation.group.pre-update">com.spring.web.dao.PersistenceValidationGroup.java</prop>
 				<prop key="javax.persistence.validation.group.pre-remove">com.spring.web.dao.PersistenceValidationGroup.java</prop>			
 			</props>
-				</props>
 			</property>
 			<property name="packagesToScan">
 				<list>
 					<value>com.spring.web.dao</value>
 				</list>
 			</property>
+		</bean>
+		
+		<bean id="exceptionTranslator"
+			class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor">
 		</bean>
 	</beans>
 </beans>
